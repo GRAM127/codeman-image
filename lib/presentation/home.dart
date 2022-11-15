@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:photo_manager/photo_manager.dart';
+
+import '../data/repository/ImageRepositoryImpl.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key? key, required this.title}) : super(key: key);
@@ -10,11 +13,15 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
 
-  void _incrementCounter() {
+  final ImageRepositoryImpl imageRepository = ImageRepositoryImpl();
+
+  List<AssetEntity>? images;
+
+  void _loadImage() async {
+    final i = await imageRepository.loadPhoto();
     setState(() {
-      _counter++;
+      images = i;
     });
   }
 
@@ -25,23 +32,22 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
+        child: GridView(
+          physics: const BouncingScrollPhysics(),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+          children: images != null ? images!.map((AssetEntity e) =>
+              AssetEntityImage(
+                e,
+                isOriginal: false,
+                fit: BoxFit.cover,
+              )
+          ).toList() : <AssetEntityImage>[],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
+        onPressed: _loadImage,
+        tooltip: 'Image',
+        child: Icon(Icons.image),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
