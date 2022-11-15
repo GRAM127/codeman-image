@@ -23,4 +23,9 @@ class ImageRepositoryImpl extends ImageRepository {
   String getImageData() {
 
   }
+
+
+  ImageRepositoryImpl._privateConstructor();
+  static final ImageRepositoryImpl _instance = ImageRepositoryImpl._privateConstructor();
+  factory ImageRepositoryImpl() => _instance;
 }
