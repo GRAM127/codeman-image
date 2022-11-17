@@ -1,4 +1,4 @@
 abstract class ImageDataSource {
 
-  String getImageData();
+  Future<String> getImageData();
 }
