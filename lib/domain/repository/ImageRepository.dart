@@ -4,5 +4,5 @@ abstract class ImageRepository {
 
   Future<List<AssetEntity>> loadPhoto();
 
-  String getImageData();
+  Future<String> getImageData();
 }

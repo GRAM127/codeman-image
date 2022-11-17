@@ -1,11 +1,12 @@
 import 'package:codeman/domain/repository/ImageRepository.dart';
 import 'package:photo_manager/photo_manager.dart';
 
+import '../datasource/local/ImageDataSource.dart';
 import '../datasource/local/ImageDataSourceImpl.dart';
 
 class ImageRepositoryImpl extends ImageRepository {
 
-  final ImageDataSourceImpl imageDataSource = ImageDataSourceImpl();
+  final ImageDataSource imageDataSource = ImageDataSourceImpl();
 
   @override
   Future<List<AssetEntity>> loadPhoto() async {
@@ -20,8 +21,8 @@ class ImageRepositoryImpl extends ImageRepository {
   }
 
   @override
-  String getImageData() {
-
+  Future<String> getImageData() async {
+    return await imageDataSource.getImageData();
   }
 
 
