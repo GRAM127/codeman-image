@@ -1,4 +1,4 @@
 abstract class ImageRepository {
 
-  String getImageData();
+  Future<String> getImageData();
 }
