@@ -21,8 +21,8 @@ class ImageRepositoryImpl extends ImageRepository {
   }
 
   @override
-  Future<String> getImageData() async {
-    return await imageDataSource.getImageData();
+  Future<String> getImageData(AssetEntity image) async {
+    return await imageDataSource.getImageData(image);
   }
 
 
