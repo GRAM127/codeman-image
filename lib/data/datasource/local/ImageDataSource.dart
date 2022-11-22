@@ -5,5 +5,5 @@ abstract class ImageDataSource {
   Future<List<AssetPathEntity>> loadAlbums();
   Future<List<AssetEntity>> loadPhoto(AssetPathEntity path);
 
-  Future<String> getImageData();
+  Future<String> getImageData(AssetEntity image);
 }

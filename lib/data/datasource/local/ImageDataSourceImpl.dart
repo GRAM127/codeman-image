@@ -1,10 +1,7 @@
-import 'dart:io';
-
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:photo_manager/photo_manager.dart';
+import 'package:exif/exif.dart';
 
 import 'ImageDataSource.dart';
-import 'package:exif/exif.dart';
 
 class ImageDataSourceImpl extends ImageDataSource {
 
@@ -19,9 +16,8 @@ class ImageDataSourceImpl extends ImageDataSource {
   }
 
   @override
-  Future<String> getImageData() async {
-    // final fileBytes = File("assets/20220919_185450.jpg").readAsBytesSync();
-    final fileBytes = (await rootBundle.load("assets/20220919_185450.jpg")).buffer.asUint8List();
+  Future<String> getImageData(AssetEntity image) async {
+    final fileBytes = (await image.file)!.readAsBytesSync();
     final data = await readExifFromBytes(fileBytes);
 
     if (data.isEmpty) {
